@@ -280,6 +280,7 @@ where
 
         let mut csv_reader = self.core_reader()?;
         let mut df = csv_reader.as_df()?;
+        // tq: for debugging
         println!("{df}");
         // Important that this rechunk is never done in parallel.
         // As that leads to great memory overhead.
