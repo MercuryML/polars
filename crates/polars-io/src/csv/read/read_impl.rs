@@ -35,7 +35,6 @@ pub(crate) fn cast_columns(
     ignore_errors: bool,
 ) -> PolarsResult<()> {
     let cast_fn = |s: &Series, fld: &Field| {
-        println!("cast: fields: {fld:?}");
         let out = match (s.dtype(), fld.dtype()) {
             #[cfg(feature = "temporal")]
             (DataType::String, DataType::Date) => s
@@ -562,7 +561,7 @@ impl<'a> CoreReader<'a> {
                             if let Some(rc) = &self.row_index {
                                 local_df.with_row_index_mut(rc.name.clone(), Some(rc.offset));
                             };
-
+                            println!("== {local_df}");
                             cast_columns(&mut local_df, &self.to_cast, false, self.ignore_errors)?;
                             let s = predicate.evaluate_io(&local_df)?;
                             let mask = s.bool()?;

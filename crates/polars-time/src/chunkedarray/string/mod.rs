@@ -221,7 +221,6 @@ pub trait StringMethods: AsString {
     #[cfg(feature = "dtype-date")]
     /// Parsing string values and return a [`DateChunked`]
     fn as_date(&self, fmt: Option<&str>, use_cache: bool) -> PolarsResult<DateChunked> {
-        println!("== as_date fmt: {:?}", fmt);
         let string_ca = self.as_string();
         let fmt = match fmt {
             Some(fmt) => fmt,
