@@ -615,7 +615,7 @@ impl<'a> CoreReader<'a> {
                             starting_point_offset,
                             self.decimal_comma,
                         )?;
-
+                        println!("== 618 {df}");
                         cast_columns(&mut df, &self.to_cast, false, self.ignore_errors)?;
                         if let Some(rc) = &self.row_index {
                             df.with_row_index_mut(rc.name.clone(), Some(rc.offset));
@@ -625,6 +625,7 @@ impl<'a> CoreReader<'a> {
                     })
                     .collect::<PolarsResult<Vec<_>>>()
             })?;
+            
             if let (Some(n_rows), Some(remaining_bytes)) = (self.n_rows, remaining_bytes) {
                 let rows_already_read: usize = dfs.iter().map(|x| x.1 as usize).sum();
                 if rows_already_read < n_rows {
@@ -664,7 +665,7 @@ impl<'a> CoreReader<'a> {
                                 .collect::<PolarsResult<_>>()?;
                             unsafe { DataFrame::new_no_checks(columns) }
                         };
-
+                        println!("== 668 {df}");
                         cast_columns(&mut df, &self.to_cast, false, self.ignore_errors)?;
                         if let Some(rc) = &self.row_index {
                             df.with_row_index_mut(rc.name.clone(), Some(rc.offset));
