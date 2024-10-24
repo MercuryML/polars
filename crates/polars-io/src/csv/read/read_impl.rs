@@ -498,6 +498,7 @@ impl<'a> CoreReader<'a> {
             if let Some(ref row_index) = self.row_index {
                 df.insert_column(0, Series::new_empty(row_index.name.clone(), &IDX_DTYPE))?;
             }
+            println!("== empty {df}");
             return Ok(df);
         }
 
