@@ -498,7 +498,6 @@ impl<'a> CoreReader<'a> {
             if let Some(ref row_index) = self.row_index {
                 df.insert_column(0, Series::new_empty(row_index.name.clone(), &IDX_DTYPE))?;
             }
-            println!("== empty {df}");
             return Ok(df);
         }
 
@@ -562,7 +561,6 @@ impl<'a> CoreReader<'a> {
                             if let Some(rc) = &self.row_index {
                                 local_df.with_row_index_mut(rc.name.clone(), Some(rc.offset));
                             };
-                            println!("== {local_df}");
                             cast_columns(&mut local_df, &self.to_cast, false, self.ignore_errors)?;
                             let s = predicate.evaluate_io(&local_df)?;
                             let mask = s.bool()?;
@@ -615,7 +613,6 @@ impl<'a> CoreReader<'a> {
                             starting_point_offset,
                             self.decimal_comma,
                         )?;
-                        println!("== 618 {df}");
                         cast_columns(&mut df, &self.to_cast, false, self.ignore_errors)?;
                         if let Some(rc) = &self.row_index {
                             df.with_row_index_mut(rc.name.clone(), Some(rc.offset));
@@ -665,7 +662,6 @@ impl<'a> CoreReader<'a> {
                                 .collect::<PolarsResult<_>>()?;
                             unsafe { DataFrame::new_no_checks(columns) }
                         };
-                        println!("== 668 {df}");
                         cast_columns(&mut df, &self.to_cast, false, self.ignore_errors)?;
                         if let Some(rc) = &self.row_index {
                             df.with_row_index_mut(rc.name.clone(), Some(rc.offset));

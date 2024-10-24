@@ -8,12 +8,12 @@
 // ];
 
 pub(super) static DATE_D_M_Y: &[&str] = &[
-    "%m-%d-%Y", // 31-12-2021
-    "%m/%d/%Y", // 31/12/2021
-    "%m.%d.%Y", // 31.12.2021
     "%m.%d.%y", // 12.31.21
     "%m/%d/%y", // 12/31/21
     "%m-%d-%y", // 12-31-21
+    "%m-%d-%Y", // 31-12-2021
+    "%m/%d/%Y", // 31/12/2021
+    "%m.%d.%Y", // 31.12.2021
 ];
 
 pub(super) static DATE_Y_M_D: &[&str] = &[
@@ -124,6 +124,8 @@ pub(super) static DATETIME_Y_M_D: &[&str] = &[
     "%Y/%m/%dT%H%M%S",
     "%Y/%m/%dT%H:%M",
     "%Y/%m/%dT%H%M",
+    "%Y%m%dT%H%M%S",
+    "%Y%m%dT%H%M",
     "%Y/%m/%d %H:%M:%S.%9f",
     "%Y/%m/%d %H:%M:%S.%6f",
     "%Y/%m/%d %H:%M:%S.%3f",
