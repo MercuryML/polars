@@ -221,7 +221,7 @@ pub trait StringMethods: AsString {
     #[cfg(feature = "dtype-date")]
     /// Parsing string values and return a [`DateChunked`]
     fn as_date(&self, fmt: Option<&str>, use_cache: bool) -> PolarsResult<DateChunked> {
-        println!("fmt1: {:?}", fmt);
+        println!("== as_date fmt: {:?}", fmt);
         let string_ca = self.as_string();
         let fmt = match fmt {
             Some(fmt) => fmt,
@@ -229,15 +229,12 @@ pub trait StringMethods: AsString {
         };
         let use_cache = use_cache && string_ca.len() > 50;
         let fmt = strptime::compile_fmt(fmt)?;
-        // tq: for debugging
-        println!("fmt2: {:?}", fmt);
         // We can use the fast parser.
         let ca = if let Some(fmt_len) = strptime::fmt_len(fmt.as_bytes()) {
             let mut strptime_cache = StrpTimeState::default();
             let mut convert = FastCachedFunc::new(
                 |s: &str| {
                     // SAFETY: fmt_len is correct, it was computed with this `fmt` str.
-                    println!("fmt3: {:?}", fmt);
                     match unsafe { strptime_cache.parse(s.as_bytes(), fmt.as_bytes(), fmt_len) } {
                         // Fallback to chrono.
                         None => NaiveDate::parse_from_str(s, &fmt).ok(),
